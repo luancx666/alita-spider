@@ -1,5 +1,6 @@
 package com.alita.weibo.hotsearch;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -22,24 +23,36 @@ public class HotSearchResponses {
     @Data
     public static class HotDetail {
         private Integer expand;
-        private String word_scheme;
+        @JsonProperty("word_scheme")
+        private String wordScheme;
         private Integer flag;
-        private String subject_label;
+        @JsonProperty("subject_label")
+        private String subjectLabel;
         private Integer num;
         private String emoticon;
         private String mid;
-        private String channel_type;
-        private String label_name;
-        private Integer star_word;
-        private Integer fun_word;
-        private Integer ad_info;
-        private String subject_querys;
-        private List<String> star_name;
-        private Integer onboard_time;
-        private Integer raw_hot;
+        @JsonProperty("channelType")
+        private String channelType;
+        @JsonProperty("label_name")
+        private String labelName;
+        @JsonProperty("star_word")
+        private Integer starWord;
+        @JsonProperty("funWord")
+        private Integer funWord;
+        @JsonProperty("ad_info")
+        private Integer adInfo;
+        @JsonProperty("subject_querys")
+        private String subjectQuerys;
+        @JsonProperty("star_name")
+        private List<String> starName;
+        @JsonProperty("onboard_time")
+        private Integer onboardTime;
+        @JsonProperty("raw_hot")
+        private Integer rawHot;
         private String category;
         private String word;
-        private Integer topic_flag;
+        @JsonProperty("topic_flag")
+        private Integer topicFlag;
         private String note;
         private Integer realpos;
         private Integer rank;

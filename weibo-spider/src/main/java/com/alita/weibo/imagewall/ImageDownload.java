@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alita.common.utils.DownloadUtil;
 import com.alita.common.utils.ThreadPoolUtils;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author: Luancx
  * @date: 2022/6/30
  */
+@Slf4j
 public class ImageDownload {
-    private static Map<String, ConcurrentLinkedQueue<ImageWallResponses.ImageWallDetail>> QUEUE_MAP = new HashMap<>(4);
+    private static final Map<String, ConcurrentLinkedQueue<ImageWallResponses.ImageWallDetail>> QUEUE_MAP = new HashMap<>(4);
     /**
      * 原图
      */
@@ -60,9 +62,10 @@ public class ImageDownload {
 
                 ThreadPoolUtils.execute(() -> {
                     try {
+                        log.info("url:{}", url);
                         DownloadUtil.downloadFile(url, filePath + fileName);
                     } catch (Exception e) {
-                        System.out.println("下载失败：" + url);
+                        log.warn("下载失败：{}", url);
                     }
                 });
             }
@@ -85,8 +88,8 @@ public class ImageDownload {
                 }
                 queue.addAll(list);
             }
-            if (!imageWall.getBottom_tips_visible()) {
-                return data.getSince_id();
+            if (!imageWall.getBottomTipsVisible()) {
+                return data.getSinceId();
             }
         }
         return null;
@@ -94,6 +97,6 @@ public class ImageDownload {
 
     public static void main(String[] args) {
         String cookie = "SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W59v61WPWDCSzVXxQYNo7M.5JpX5KMhUgL.FoMp1hMEeo5Re0-2dJLoIE5LxKnLB--LBo5LxKqL1KnL1KBLxK-LBo.LBoBEeoz0Sntt; SINAGLOBAL=5799848886875.479.1655443332879; UOR=,,cn.bing.com; WBPSESS=VHyaQQ5jmkhozlMQtSPGutIuJa39yZWReHu69iDhZPYAoC6RLglCQ7-McM4U71q5F6hKni3tN_Cq0y_dS9PD15xhgcDJE9TANrbx7elb3MMtN1ljWLPAFHz8Q3lsCmK6Fj11KK13tpGTVDY_CgboHg==; ULV=1656573494464:7:7:5:715894935737.1313.1656573494448:1656569806563; PC_TOKEN=2542f02941; ALF=1688114299; SSOLoginState=1656578300; SCF=Apx-Pp2cfATdPnEQlsWGKhUc2uJz6Q3vvgsYuGg8NZ7CoTmIHHpwXKaymEUUK_liyQCdv0s97inuCk_XzkXJNco.; SUB=_2A25PuRCsDeRhGeFP41UT8i7EyDmIHXVszwVkrDV8PUNbmtB-LRXFkW9NQReOSXD71hHks9HiswGE0gw_6iwPDiXi; XSRF-TOKEN=KCRyd227XpZsXu7JSStOtJ40";
-        downloadImage("2732448712", "C:\\software\\download\\", cookie);
+        downloadImage("2732448712", "C:\\software\\aliDrive\\微博相册\\嘉泽\\", cookie);
     }
 }

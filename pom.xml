@@ -12,6 +12,7 @@
     <modules>
         <module>alita-common</module>
         <module>weibo-spider</module>
+        <module>xueqiu-spider</module>
     </modules>
 
     <properties>
